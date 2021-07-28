@@ -17,6 +17,13 @@ export type Question = {
 
 export type QuestionSatate = Question & { answers: string[] };
 
+export type AnswerObject = {
+  question: string;
+  answer: string;
+  correct: boolean;
+  correctAnswer: string;
+};
+
 //? Difficulty Enum
 export enum Difficulty {
   EASY = "easy",
