@@ -1,5 +1,8 @@
 import React, { useState} from "react";
+//? Import Components
 import QuestionCard from "./components/QuestionCard";
+import Loading from "./components/Loading";
+//? Import Types
 import {
   fetchQuestions,
   Difficulty,
@@ -82,7 +85,7 @@ function App() {
       ) : null}
 
       {!gameOver ? <p className="score">Score: {score} </p> : null}
-      {loading ? <h1>Loading...</h1> : null}
+      {loading ? <Loading/> : null}
       {!loading && !gameOver ? (
         <QuestionCard
           questionNumber={number + 1}
