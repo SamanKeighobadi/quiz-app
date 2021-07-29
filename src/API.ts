@@ -1,9 +1,8 @@
 import axios from "axios";
 
 //? Random Function
-const shuffelArray = (array: any[]) => {
-  [...array].sort(() => Math.random() - 0.5);
-};
+const shuffleArray = (array: any[]) =>
+  [...array].sort(() => Math.random() - 0.5);;
 
 //?Types
 export type Question = {
@@ -40,7 +39,7 @@ export const fetchQuestions = async (
   const data = await (await axios(QUIZ_API)).data;
   return data.results.map((question: Question) => ({
     ...question,
-    answers: shuffelArray([
+    answers: shuffleArray([
       ...question.incorrect_answers,
       question.correct_answer,
     ]),

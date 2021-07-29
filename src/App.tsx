@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import QuestionCard from "./components/QuestionCard";
 import {
   fetchQuestions,
@@ -43,12 +42,35 @@ function App() {
     }
   };
 
-  const cheeckAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
+  const cheeckAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      //?users answer
+      const answer = e.currentTarget.value;
 
-  const nextQuestion = () => {};
+      const correct = questions[number].correct_answer === answer;
 
-  // useEffect(() =>{
-  // },[])
+      if (correct) setScore((prevState) => prevState + 1);
+
+      //* Save answers
+      const answerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer,
+      };
+      setUserAnswer((prevUserAnswer) => [...prevUserAnswer, answerObject]);
+    }
+  };
+
+  const nextQuestion = () => {
+    const nextQuestion = number + 1;
+
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    }else {
+      setNumber(nextQuestion);
+    }
+  };
 
   return (
     <div className="App">
@@ -59,7 +81,7 @@ function App() {
         </button>
       ) : null}
 
-      {!gameOver ? (<p className="score">Score: {score} </p>) : null}
+      {!gameOver ? <p className="score">Score: {score} </p> : null}
       {loading ? <h1>Loading...</h1> : null}
       {!loading && !gameOver ? (
         <QuestionCard
@@ -72,9 +94,14 @@ function App() {
         />
       ) : null}
 
-      <button className="next" onClick={nextQuestion}>
-        Next Questions
-      </button>
+      {!gameOver &&
+      !loading &&
+      userAnswer.length === number + 1 &&
+      number !== TOTAL_QUESTIONS - 1 ? (
+        <button className="next" onClick={nextQuestion}>
+          Next Questions
+        </button>
+      ) : null}
     </div>
   );
 }
