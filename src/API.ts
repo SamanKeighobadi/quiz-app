@@ -1,8 +1,10 @@
 import axios from "axios";
+import styled  from 'styled-components'
+
 
 //? Random Function
 const shuffleArray = (array: any[]) =>
-  [...array].sort(() => Math.random() - 0.5);;
+  [...array].sort(() => Math.random() - 0.5);
 
 //?Types
 export type Question = {
@@ -34,7 +36,7 @@ export enum Difficulty {
 export const fetchQuestions = async (
   amount: number,
   difficulty: Difficulty
-) => {
+): Promise<QuestionSatate[]> => {
   const QUIZ_API = `https://opentdb.com/api.php?amount=${amount}&difficaulty=${difficulty}&type=multiple`;
   const data = await (await axios(QUIZ_API)).data;
   return data.results.map((question: Question) => ({

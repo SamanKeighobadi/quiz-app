@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 //? Import Components
 import QuestionCard from "./components/QuestionCard";
 import Loading from "./components/Loading";
@@ -13,6 +13,7 @@ import {
 const TOTAL_QUESTIONS = 10;
 
 function App() {
+  //?States
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionSatate[]>([]);
   const [number, setNumber] = useState(0);
@@ -20,8 +21,9 @@ function App() {
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
-  console.log(questions);
+  // console.log(questions);
 
+  //? Get Questions from Traivia
   const startTraivia = async () => {
     try {
       setLoading(true);
@@ -45,15 +47,21 @@ function App() {
     }
   };
 
+  //? Cheeck Answer
   const cheeckAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
-      //?users answer
+      //*users answer
       const answer = e.currentTarget.value;
 
       const correct = questions[number].correct_answer === answer;
 
       if (correct) setScore((prevState) => prevState + 1);
 
+      if (correct) {
+        console.log("correct answer");
+      } else {
+        console.log("incorrect answer");
+      }
       //* Save answers
       const answerObject = {
         question: questions[number].question,
@@ -65,12 +73,13 @@ function App() {
     }
   };
 
+  //? Next Question
   const nextQuestion = () => {
     const nextQuestion = number + 1;
 
     if (nextQuestion === TOTAL_QUESTIONS) {
       setGameOver(true);
-    }else {
+    } else {
       setNumber(nextQuestion);
     }
   };
@@ -85,7 +94,7 @@ function App() {
       ) : null}
 
       {!gameOver ? <p className="score">Score: {score} </p> : null}
-      {loading ? <Loading/> : null}
+      {loading ? <Loading /> : null}
       {!loading && !gameOver ? (
         <QuestionCard
           questionNumber={number + 1}
