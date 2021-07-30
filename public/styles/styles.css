@@ -77,9 +77,3 @@ button {
   align-items: center;
   margin-top: 3rem;
 }
-.wrong{
-  background:red !important;
-}
-.correct {
-  background: green !important;
-}

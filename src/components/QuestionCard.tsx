@@ -1,8 +1,8 @@
 import React from "react";
 //? Types
-import { AnswerObject} from "../API";
+import { AnswerObject } from "../API";
 
-import {CheechQuestionButton} from './components.style'
+import { CheechQuestionButton } from "./components.style";
 
 type Props = {
   question: string;
@@ -29,18 +29,18 @@ const QuestionCard: React.FC<Props> = ({
       <p className="question" dangerouslySetInnerHTML={{ __html: question }} />
       <div>
         {answers.map((answer) => (
-          <CheechQuestionButton 
+          <CheechQuestionButton
             correct={userAnswer?.correctAnswer === answer}
             userClick={userAnswer?.answer === answer}
-          key={answer}>
+            key={answer}
+          >
             <button
               className={"question-button"}
-              
               disabled={userAnswer ? true : false}
               value={answer}
               onClick={callback}
             >
-              <span dangerouslySetInnerHTML={{ __html: answer }}   />
+              <span dangerouslySetInnerHTML={{ __html: answer }} />
             </button>
           </CheechQuestionButton>
         ))}

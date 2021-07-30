@@ -57,11 +57,6 @@ function App() {
 
       if (correct) setScore((prevState) => prevState + 1);
 
-      if (correct) {
-        console.log("correct answer");
-      } else {
-        console.log("incorrect answer");
-      }
       //* Save answers
       const answerObject = {
         question: questions[number].question,
